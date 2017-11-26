@@ -1,0 +1,125 @@
+
+.transform(@para) {
+  -webkit-transform: @para;
+  -ms-transform: @para;
+  transform: @para;
+}
+
+.transition(@para) {
+  -webkit-transition: @para;
+  -ms-transition: @para;
+  transition: @para;
+}
+
+a {
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+
+.slide {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+
+  .slide-page {
+    position: relative;
+    height: 100%;
+    white-space: nowrap;
+    font-size: 0;
+    .transform(translate(0));
+
+    .slide-dir-vertical& {
+      white-space: normal;
+      height: auto;
+    }
+
+    .page-item {
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+      font-size: initial;
+      vertical-align: top;
+      white-space: normal;
+      overflow: hidden;
+
+      .slide-fade& {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: auto;
+        opacity: 0;
+
+        &.current {
+          z-index: 10;
+          opacity: 1;
+        }
+      }
+
+      img {
+        width: 100%;
+        vertical-align: top;
+      }
+    }
+
+  }
+
+  .slide-indicator {
+    position: absolute;
+    left: 0;
+    bottom: 10px;
+    width: 100%;
+    font-size: 0;
+
+    .indicator-item {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border: 1px solid #e34c26;
+      margin-left: 6px;
+      background: rgba(255, 255, 255, .5);
+      border-radius: 50%;
+      box-sizing: border-box;
+
+      &.current {
+        border: none;
+        background: #e34c26;
+      }
+    }
+
+  }
+
+  .slide-action {
+
+    .action-item {
+      position: absolute;
+      top: 50%;
+      width: 30px;
+      height: 30px;
+      background: rgba(0, 0, 0, .5);
+      border-radius: 50%;
+
+      &::after {
+        position: absolute;
+        width: 35%;
+        height: 35%;
+        content: '';
+        border-left: 2px solid #fff;
+        border-top: 2px solid #fff;
+        margin-left: 35%;
+        margin-top: 35%;
+      }
+
+      &.prev {
+        left: 5px;
+        .transform(~"translateY(-50%) rotate(-45deg)");
+      }
+      &.next {
+        right: 5px;
+        .transform(~"translateY(-50%) rotate(-225deg)");
+      }
+    }
+
+  }
+}
