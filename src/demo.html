@@ -1,0 +1,148 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>slide-demo</title>
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  color: #333;
+  font-size: 14px;
+}
+
+.title {
+  padding-left: 10px;
+}
+
+.content-box {
+  margin-bottom: 10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+  <h3 class="title">默认</h3>
+
+  <div class="content-box">
+    <div class="slide" id="slide01"></div>
+  </div>
+
+  <h3 class="title">自定义图文 + 点击触发回调</h3>
+
+  <div class="content-box">
+    <div class="slide" id="slide02"></div>
+  </div>
+
+  <h3 class="title">无缝循环 + 箭头控制</h3>
+
+  <div class="content-box">
+    <div class="slide" id="slide03"></div>
+  </div>
+
+  <h3 class="title">垂直切换</h3>
+
+  <div class="content-box">
+    <div class="slide" id="slide04"></div>
+  </div>
+
+  <h3 class="title">透明度切换</h3>
+
+  <div class="content-box">
+    <div class="slide" id="slide05"></div>
+  </div>
+
+
+  <p><a href="fullpage.html">fullPage</a></p>
+
+</div>
+
+<script>
+
+
+$('.slide#slide01').slide();
+
+$('.slide#slide02').slide({
+  data: [
+    {
+      img: 'src/res/images/spring.jpg',
+      callback: function() {
+        window.open('https://baike.baidu.com/item/%E6%98%A5%E5%AD%A3');
+      }
+    },
+    {
+      img: 'src/res/images/summer.jpg',
+      callback: function() {
+        window.open('https://baike.baidu.com/item/%E5%A4%8F%E5%AD%A3/22299');
+      }
+    },
+    {
+      img: 'src/res/images/autumn.jpg',
+      callback: function() {
+        window.open('https://baike.baidu.com/item/%E7%A7%8B%E5%AD%A3');
+      }
+    },
+    {
+      img: 'src/res/images/winter.jpg',
+      callback: function() {
+        window.open('https://baike.baidu.com/item/%E5%86%AC%E5%AD%A3/2655');
+      }
+    },
+    {
+      html: `<div class="slide-default-content" style="background: rgba(153, 0, 0, 0.5)">
+                  <h2>page5</h2>
+                  <p>此屏为HTML内容，用户可自定义，点击后将弹出内容</p>
+                </div>`,
+      callback: function() {
+        alert('html content');
+      }
+    },
+    {
+     html: `<div class="slide-default-content" style="background: rgba(51, 153, 0, 0.5)">
+              <h2>page6</h2>
+              <p>每屏的子元素不受slide事件影响</p>
+              <p><a href="javascript:;" onClick="alert('page6')">弹出测试内容</a> <a href="https://www.baidu.com" target="_blank">跳转至baidu</a></p>
+            </div>`
+    }
+  ]
+});
+
+$('.slide#slide03').slide({
+  loop: true,
+  action: true,
+  data: [
+    {
+      img: 'src/res/images/spring.jpg'
+    },
+    {
+      img: 'src/res/images/summer.jpg'
+    },
+    {
+      img: 'src/res/images/autumn.jpg'
+    },
+    {
+      img: 'src/res/images/winter.jpg'
+    }
+  ]
+});
+
+$('.slide#slide04').slide({
+  dirType: 'vertical'
+});
+
+$('.slide#slide05').slide({
+  mode: 'fade-in-out'
+});
+
+
+
+</script>
+</body>
+
+</html>

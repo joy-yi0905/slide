@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>slide-fullpage-demo</title>
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+  <div class="slide" id="slide01"></div>
+
+</div>
+
+<script>
+
+
+$('.slide#slide01').slide({
+  dirType: 'vertical',
+  autoplay: false,
+  slideH: $(window).height()
+});
+
+
+</script>
+</body>
+
+</html>
