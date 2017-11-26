@@ -2,8 +2,13 @@
 
 基于zepto的滑动组件。
 
-slide演示：**[demo](http://joy-yi0905.github.io/slide/demo/demo.html)**
-slide全屏演示：**[demo](http://joy-yi0905.github.io/slide/demo/fullpage.html)**
+**slide演示：[demo](http://joy-yi0905.github.io/slide/demo/demo.html)**
+
+![slide演示](src/res/images/demo.png)
+
+**slide全屏演示：[demo](http://joy-yi0905.github.io/slide/demo/fullpage.html)**
+
+![slide全屏演示](src/res/images/fullpage.png)
 
 ### 如何使用
 
