@@ -49,16 +49,14 @@ $('.slide#slide01').slide();
 | interval | 每屏轮播间隔时间 | 3000（毫秒） | Number |
 | animateTime | 每屏切换所需时间 | 500（毫秒） | Number |
 | switchTriggerRange | 触发换屏所需的拖动距离比例 | 0.3 | Number |
+| indicator | 是否显示圆点 | true | Boolean |
 | action | 是否需要箭头控制 | false | Boolean |
-| data | slide每屏所需数据 | 3屏，html内容（见demo） | Array |
+| dragAttach | 轮播图是否随鼠标（手指）拖动时被吸附 | true | Boolean |
 | slideW | slide 宽度 | 父级容器宽度 | Number |
 | slideH | slide 高度 | 当 slide 包含图片时，以第一张图的高度为基准。 当 slide 不包含图片时，以内容最多的屏的高度为基准 | Number |
+| data | slide每屏所需数据 | 3屏，html内容（见demo） | Array |
 | callback | 每屏切换后，触发的回调函数。它包含了一个参数，为当前屏的索引值 | 空函数 | Function |
 
 
 
 - [ ] 内容超过一屏幕，先滚动完，再触发下一屏幕
-- [ ] 滑动跟随
-- [ ] 圆点显示可选
-- [ ] 禁用拖动
-

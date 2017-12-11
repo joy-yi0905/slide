@@ -28,7 +28,61 @@ html, body {
 $('.slide#slide01').slide({
   dirType: 'vertical',
   autoplay: false,
-  slideH: $(window).height()
+  indicator: false,
+  dragAttach: false,
+  slideH: $(window).height(),
+  data: [
+    {
+      html: `
+            <style type="text/css">
+              .slide-default-content {width:100%; height: 100%; box-sizing: border-box;padding: 5px 20px 20px; color: #fff;overflow: hidden;}
+            </style>
+            <div class="slide-default-content" style="background: rgba(0, 0, 0, 0.5)">
+              <h2>page1</h2>
+              <p>This is page1 content</p>
+            </div>`
+    },
+    {
+      html: `<div class="slide-default-content" style="background: rgba(153, 0, 0, 0.5)">
+              <h2>page2</h2>
+              <p>This is page22 content</p>
+              <p>This is page22 content</p>
+              <p>This is page22 content</p>
+              <p>This is page22 content</p>
+              <p>This is page22 content</p>
+              <p>This is page22 content</p>
+              <p>This is page22 content</p>
+              <p>This is page22 content</p>
+              <p>This is page22 content</p>
+              <p>This is page22 content</p>
+              <p>This is page22 content</p>
+              <p>This is page22 content</p>
+              <p>This is page22 content</p>
+              <p>This is page22 content</p>
+              <p>This is page22 content</p>
+              <p>This is page22 content</p>
+              <p>This is page22 content</p>
+              <p>This is page22 content</p>
+              <p>This is page22 content</p>
+              <p>This is page22 content</p>
+              <p>This is page22 content</p>
+              <p>This is page22 content</p>
+              <p>This is page22 content</p>
+              <p>This is page22 content</p>
+              <p>This is page22 content</p>
+              <p>This is page22 content</p>
+              <p>This is page22 content</p>
+              <p>This is page22 content</p>
+              <p>last</p>
+            </div>`
+    },
+    {
+      html: `<div class="slide-default-content" style="background: rgba(51, 153, 0, 0.5)">
+              <h2>page3</h2>
+              <p>This is page333 content</p>
+            </div>`
+    }
+  ]
 });
 
 

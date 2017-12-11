@@ -25,7 +25,9 @@ import Press from './../js/press';
       interval: 3000,
       animateTime: 500,
       switchTriggerRange: 0.3,
+      indicator: true,
       action: false,
+      dragAttach: true,
       slideW: 0,
       slideH: 0,
       data: [
@@ -103,7 +105,7 @@ import Press from './../js/press';
 
     createSlide() {
       this.createSlidePage();
-      this.createSlideIndicator();
+      this.opts.indicator && this.createSlideIndicator();
       this.opts.action && this.createSlideAction();
     },
 
@@ -238,7 +240,7 @@ import Press from './../js/press';
 
         this.registerPageCallback();
 
-        this.opts.autoplay && this.switchTimer();
+        this.startTimer(0);
       });
     },
 
@@ -273,7 +275,7 @@ import Press from './../js/press';
 
         moveDistance = this.slidePage.data('translate') + this.dragDistance;
 
-        this.setPageTransform(moveDistance);
+        this.opts.dragAttach && this.setPageTransform(moveDistance);
 
       });
     },
@@ -304,9 +306,7 @@ import Press from './../js/press';
 
         this.setIndex();
 
-        setTimeout(() => {
-          this.switchTimer();
-        }, this.opts.animateTime);
+        this.startTimer();
       });
     },
 
@@ -322,6 +322,14 @@ import Press from './../js/press';
 
     clearTimer() {
       clearInterval(this.timer);
+    },
+
+    startTimer(interval = this.opts.animateTime) {
+      clearInterval(this.timer);
+
+      setTimeout(() => {
+        this.opts.autoplay && this.switchTimer();
+      }, interval);
     },
 
     switchTimer() {
@@ -349,11 +357,7 @@ import Press from './../js/press';
       const actionCallback = (index) => {
         this.opts.index = index;
         this.setIndex();
-        this.clearTimer();
-
-        setTimeout(() => {
-          this.switchTimer();
-        }, this.opts.animateTime);
+        this.startTimer();
       };
 
       this.prev.on('click', () => {
@@ -390,19 +394,14 @@ import Press from './../js/press';
     switchIndicator() {
       const that = this;
 
-      var indicatorCallback = () => {
+      var indicatorCallback = (index) => {
+        this.opts.index = index;
         this.setIndex();
-        this.clearTimer();
-
-        setTimeout(() => {
-          this.switchTimer();
-        }, this.opts.animateTime);
+        this.startTimer();
       };
 
       this.indicatorItem.on('click', function() {
-        that.opts.index = that.indicatorItem.index($(this));
-
-        indicatorCallback(that.opts.index);
+        indicatorCallback(that.indicatorItem.index($(this)));
       });
     },
 
@@ -454,7 +453,7 @@ import Press from './../js/press';
 
       this.pageItem.removeClass('current').eq(pageIndex).addClass('current');
 
-      this.indicatorItem.removeClass('current').eq(indicatorIndex).addClass('current');
+      this.opts.indicator && this.indicatorItem.removeClass('current').eq(indicatorIndex).addClass('current');
 
       this.isSwitching = true;
 
