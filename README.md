@@ -54,6 +54,7 @@ $('.slide#slide01').slide();
 | dragAttach | 轮播图是否随鼠标（手指）拖动时被吸附 | true | Boolean |
 | slideW | slide 宽度 | 父级容器宽度 | Number |
 | slideH | slide 高度 | 当 slide 包含图片时，以第一张图的高度为基准。 当 slide 不包含图片时，以内容最多的屏的高度为基准 | Number |
+| bgColor | 每屏的背景色。当使用默认背景色，且轮播张数多余默认背景色数时，则循环设置背景色 | ['rgba(0, 0, 0, 0.5)', 'rgba(153, 0, 0, 0.5)', 'rgba(51, 153, 0, 0.5)'] | Array |
 | data | slide每屏所需数据 | 3屏，html内容（见demo） | Array |
 | callback | 每屏切换后，触发的回调函数。它包含了一个参数，为当前屏的索引值 | 空函数 | Function |
 

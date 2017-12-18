@@ -30,25 +30,26 @@ import Press from './../js/press';
       dragAttach: true,
       slideW: 0,
       slideH: 0,
+      bgColor: ['rgba(0, 0, 0, 0.5)', 'rgba(153, 0, 0, 0.5)', 'rgba(51, 153, 0, 0.5)'],
       data: [
         {
           html: `
                 <style type="text/css">
-                  .slide-default-content {width:100%; height: 100%; box-sizing: border-box;padding: 5px 20px 20px; color: #fff;overflow: hidden;}
+                  .user-content {box-sizing: border-box;padding: 5px 20px 20px; color: #fff;}
                 </style>
-                <div class="slide-default-content" style="background: rgba(0, 0, 0, 0.5)">
+                <div class="user-content">
                   <h2>page1</h2>
                   <p>This is page1 content</p>
                 </div>`
         },
         {
-          html: `<div class="slide-default-content" style="background: rgba(153, 0, 0, 0.5)">
+          html: `<div class="user-content">
                   <h2>page2</h2>
                   <p>This is page22 content</p>
                 </div>`
         },
         {
-          html: `<div class="slide-default-content" style="background: rgba(51, 153, 0, 0.5)">
+          html: `<div class="user-content">
                   <h2>page3</h2>
                   <p>This is page333 content</p>
                 </div>`
@@ -110,6 +111,8 @@ import Press from './../js/press';
     },
 
     createSlidePage() {
+      let bgColor = this.opts.bgColor;
+
       this.slidePage = $('<div class="slide-page" />');
 
       for (let i = 0; i < this.pageLength; i++) {
@@ -117,11 +120,11 @@ import Press from './../js/press';
 
         for (let n in this.data[i]) {
           if (n === 'img') {
-            page.html(`<img src="${this.data[i][n]}" />`).appendTo(this.slidePage);
+            page.html(`<div class="slide-content"><img src="${this.data[i][n]}" /></div>`).appendTo(this.slidePage);
 
             if (this.imgIndex === -1) this.imgIndex = i;
           } else if (n === 'html') {
-            page.html(this.data[i][n]).appendTo(this.slidePage);
+            page.html(`<div class="slide-content">${this.data[i][n]}</div>`).css('background-color', bgColor[i % bgColor.length]).appendTo(this.slidePage);
           }
         }
       }
