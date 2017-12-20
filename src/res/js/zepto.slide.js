@@ -84,6 +84,9 @@ import Press from './../js/press';
     this.prev = null;
     this.next = null;
 
+    this.switchClass = '';
+    this.canScroll = false;
+
     this.init();
   }
 
@@ -111,6 +114,7 @@ import Press from './../js/press';
     },
 
     createSlidePage() {
+      let slideH = this.slideH;
       let bgColor = this.opts.bgColor;
 
       this.slidePage = $('<div class="slide-page" />');
@@ -211,7 +215,7 @@ import Press from './../js/press';
           this.slideEle.addClass('slide-dir-vertical');
         }
 
-        new Press(this.slidePage.get(0), !this.isHorizontal);
+        new Press(this.slidePage.get(0));
 
         this.pressStart();
         this.pressMove();
@@ -244,19 +248,58 @@ import Press from './../js/press';
         this.registerPageCallback();
 
         this.startTimer(0);
+
+        this.setPageHeight();
+      });
+    },
+
+    setPageHeight() {
+      let that = this;
+
+      this.pageItem.each(function(index, item) {
+        let pageContent = $(item).children();
+
+        if (that.opts.dirType === 'vertical' && pageContent.height() > that.slideH) {
+          $(item).addClass('prev')
+          .css({
+            overflowY: 'auto'
+          })
+          .data('scroll', pageContent.height());
+        }
       });
     },
 
     registerPageCallback() {
+      let that = this;
+
       this.data.map((item, index) => {
 
         this.pageItem.eq(this.opts.loop ? index + 1 : index)
         .on('click', (e) => {
           item.callback && item.callback();
         })
-        .on('touchmove', (e) => { // Prevent default scrolling
-          e.preventDefault();
+        .on('touchmove', (e) => { // Prevent default scrolling from vertical direction
+          !this.canScroll && e.preventDefault();
         });
+
+      });
+
+      this.pageItem
+      .on('scroll', function() {
+        let scrollTop = $(this).scrollTop();
+
+        if ($(this).data('scroll')) {
+          if (scrollTop === 0) {
+            that.canScroll = false;
+            that.switchClass = 'prev';
+          } else if (scrollTop === $(this).data('scroll') - that.slideH) {
+            that.canScroll = false;
+            that.switchClass = 'next';
+          } else {
+            that.canScroll = true;
+            $(this).removeClass('prev next');
+          }
+        }
       });
     },
 
@@ -265,6 +308,16 @@ import Press from './../js/press';
       this.slidePage.on('pressStart', (e) => {
         this.dragDistance = 0;
         this.clearTimer();
+
+        let currentPage = this.pageItem.eq(this.pageIndex);
+
+        if (currentPage.data('scroll') && !this.canScroll) {
+          if (this.switchClass === 'prev') {
+            currentPage.removeClass('prev next').addClass('prev');
+          } else if (this.switchClass === 'next') {
+            currentPage.removeClass('prev next').addClass('next');
+          }
+        }
       });
     },
 
@@ -274,11 +327,23 @@ import Press from './../js/press';
 
       this.slidePage.on('pressMove', (e) => {
 
-        this.dragDistance = this.isHorizontal ? e.detail.offsetX : e.detail.offsetY;
+        let currentPage = this.pageItem.eq(this.pageIndex);
 
-        moveDistance = this.slidePage.data('translate') + this.dragDistance;
+        if (currentPage.data('scroll')) {
+          if ((currentPage.hasClass('prev') && e.detail.offsetY < 0) || (currentPage.hasClass('next') &&  e.detail.offsetY > 0)) {
+            this.canScroll = true;
+          }
 
-        this.opts.dragAttach && this.setPageTransform(moveDistance);
+          if (!currentPage.hasClass('prev') && !currentPage.hasClass('next')) return;
+        }
+
+        if (!this.canScroll) {
+          this.dragDistance = this.isHorizontal ? e.detail.offsetX : e.detail.offsetY;
+
+          moveDistance = this.slidePage.data('translate') + this.dragDistance;
+
+          this.opts.dragAttach && this.setPageTransform(moveDistance);
+        }
 
       });
     },

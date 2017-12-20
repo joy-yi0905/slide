@@ -7,7 +7,7 @@ var eventStart, eventMove, eventEnd,
   eventMove = isSupportTouch ? 'touchmove' : 'mousemove';
   eventEnd = isSupportTouch ? 'touchend' : 'mouseup';
 
-function Press(element, preventDefault) {
+function Press(element) {
   this.element = element;
 
   this.doing = false;
@@ -18,8 +18,6 @@ function Press(element, preventDefault) {
   this.offsetY = 0;
   this.endX = 0;
   this.endY = 0;
-
-  this.preventDefault = preventDefault;
 
   this.init();
 
